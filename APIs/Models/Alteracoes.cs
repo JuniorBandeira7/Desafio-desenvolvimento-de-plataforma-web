@@ -12,22 +12,15 @@ namespace APIs.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int id { get; set; }
 
-        public int ProdutoId { get; set; }
+        public string produtoNome { get; set; }
 
-        public DateTime DataAlteracao { get; set; }
+        public string tipoAlteracao { get; set; }
 
-        [StringLength(255)]
-        public string Usuario { get; set; }
+        public string nomeDeQuemAlterou { get; set; }
 
-        [StringLength(50)]
-        public string TipoAlteracao { get; set; }
-
-        public string Detalhes { get; set; }
-
-        [ForeignKey("ProdutoId")]
-        public virtual Produto Produto { get; set; }
+        public DateTime dataAlteracao { get; set; }
     }
 
 

@@ -15,10 +15,10 @@ namespace APIs.Models
         public int id { get; set; }
         public decimal valor { get; set; }
         public int quantidade { get; set; }
-        public bool ItemEspecial { get; set; }
+        public bool itemEspecial { get; set; }
         [StringLength(255)]
         public string nome { get; set; }
-        public List<string> Ingredientes { get; set; }
-        public DateTime DataEmissao { get; set; }
+        public List<string> ingredientes { get; set; }
+        public DateTime dataEmissao { get; set; }
     }
 }

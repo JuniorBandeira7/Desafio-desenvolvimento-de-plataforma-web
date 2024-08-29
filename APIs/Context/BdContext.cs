@@ -22,19 +22,13 @@ namespace APIs.Context
         {
             base.OnModelCreating(modelBuilder);
 
-            // Configuração adicional para a tabela Alteracoes
-            modelBuilder.Entity<Alteracao>()
-                .HasOne(a => a.Produto)// Cada alteração possui um Produto
-                .WithMany()// Um Produto possui n Alteracoes
-                .HasForeignKey(a => a.ProdutoId);
-
             // Configuração de conversão para o campo Ingredientes
             var converter = new ValueConverter<List<string>, string>(
                 v => JsonSerializer.Serialize(v, new JsonSerializerOptions { WriteIndented = false }),
                 v => JsonSerializer.Deserialize<List<string>>(v, new JsonSerializerOptions { WriteIndented = false }));
 
             modelBuilder.Entity<Produto>()
-                .Property(p => p.Ingredientes)
+                .Property(p => p.ingredientes)
                 .HasConversion(converter);
         }
     }

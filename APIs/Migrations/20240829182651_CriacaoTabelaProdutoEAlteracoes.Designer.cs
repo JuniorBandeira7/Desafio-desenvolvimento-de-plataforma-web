@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APIs.Migrations
 {
     [DbContext(typeof(BdContext))]
-    [Migration("20240829004304_CriacaoTabelaProdutoEAlteracoes")]
+    [Migration("20240829182651_CriacaoTabelaProdutoEAlteracoes")]
     partial class CriacaoTabelaProdutoEAlteracoes
     {
         /// <inheritdoc />
@@ -24,30 +24,23 @@ namespace APIs.Migrations
 
             modelBuilder.Entity("APIs.Models.Alteracao", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DataAlteracao")
+                    b.Property<DateTime>("dataAlteracao")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("Detalhes")
+                    b.Property<string>("nomeDeQuemAlterou")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("ProdutoId")
-                        .HasColumnType("int");
+                    b.Property<string>("produtoNome")
+                        .HasColumnType("longtext");
 
-                    b.Property<string>("TipoAlteracao")
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                    b.Property<string>("tipoAlteracao")
+                        .HasColumnType("longtext");
 
-                    b.Property<string>("Usuario")
-                        .HasMaxLength(255)
-                        .HasColumnType("varchar(255)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProdutoId");
+                    b.HasKey("id");
 
                     b.ToTable("Alteracoes");
                 });
@@ -58,13 +51,13 @@ namespace APIs.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DataEmissao")
+                    b.Property<DateTime>("dataEmissao")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("Ingredientes")
+                    b.Property<string>("ingredientes")
                         .HasColumnType("longtext");
 
-                    b.Property<bool>("ItemEspecial")
+                    b.Property<bool>("itemEspecial")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("nome")
@@ -80,17 +73,6 @@ namespace APIs.Migrations
                     b.HasKey("id");
 
                     b.ToTable("Produtos");
-                });
-
-            modelBuilder.Entity("APIs.Models.Alteracao", b =>
-                {
-                    b.HasOne("APIs.Models.Produto", "Produto")
-                        .WithMany()
-                        .HasForeignKey("ProdutoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Produto");
                 });
 #pragma warning restore 612, 618
         }
