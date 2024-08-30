@@ -1,0 +1,18 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.content-section{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 3em;
+}
+.content-section-div{
+    width: 70%;
+    border: 1px solid #009cf7;
+}
+a{
+    text-decoration: none;
+}
