@@ -1,3 +1,4 @@
+import $ from 'jquery'
 class Produto {
     constructor(id, valor, quantidade, itemEspecial, nome, dataEmissao) {
         this.id = id
@@ -7,12 +8,6 @@ class Produto {
         this.nome = nome
         this.dataEmissao = dataEmissao
         this.igredientes = []
-    }
-
-    obterDadosPedidoIndividual(){
-        let informacoes = [this.id, this.valor, this.quantidade, this.itemEspecial, this.nome, this.dataEmissao, this.igredientes]
-
-        return informacoes
     }
 
     criarProduto(produto) {
@@ -26,21 +21,6 @@ class Produto {
             },
             error: function(error) {
                 console.error('Erro ao criar o produto:', error);
-            }
-        });
-    }
-
-    obterTodosProdutos() {
-        $.ajax({
-            url: 'http://localhost:5017/api/Produtos/todos-produtos',
-            type: 'GET',
-            contentType: 'application/json',
-            success: function(response) {
-                console.log('Produtos obtidos com sucesso:');
-                return response
-            },
-            error: function(error) {
-                console.error('Erro ao obter produtos:', error);
             }
         });
     }
@@ -88,7 +68,7 @@ class Produto {
             }),
             success: function(response) {
                 console.log('Produto atualizado com sucesso:', response);
-                // Atualizar a interface ou exibir uma mensagem de sucesso
+                window.location.href = '/';// Pensar em algum feedback visual
             },
             error: function(xhr, status, error) {
                 console.error('Erro ao atualizar o produto:', error);
