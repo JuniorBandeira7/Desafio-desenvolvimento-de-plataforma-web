@@ -1,24 +1,13 @@
 import Produto from "../Model/Produto"
 import $ from 'jquery'
 
-export function getInformacoesProduto(){
-    const produto = new Produto()
-
-    const hoje = new Date()
-
-    produto.nome = document.getElementById('nome').value
-    produto.valor = document.getElementById('valor').value
-    produto.itemEspecial = $('#item-especial').is(':checked')
-    produto.quantidade = document.getElementById('quantidade').value
-    produto.dataEmissao = hoje
-    produto.igredientes = document.getElementById('igredientes').value
-
-    return produto
-}
-
-export function criarProduto(){
-    const produto = new Produto()
-    produto = getInformacoesProduto()
+export function criar(nome, valor, quantidade, itemEspecial, ingredientes){
+    const dataEmissao = new Date()
+    const produto = new Produto(null, valor, quantidade, itemEspecial, nome, dataEmissao)
+    produto.ingredientes = ingredientes
+    alert(JSON.stringify(
+        produto
+    ))
 
     produto.criarProduto(produto)
 }
@@ -30,39 +19,58 @@ export function obterTodosProdutos() {
             type: 'GET',
             contentType: 'application/json',
             success: function(response) {
-                console.log('Produtos obtidos com sucesso:', response);
-                resolve(response);  
+                console.log('Produtos obtidos com sucesso:', response)
+                resolve(response)  
             },
-            error: function(error) {+
-                console.error('Erro ao obter produtos:', error);
-                reject(error); 
+            error: function(error) {
+                console.error('Erro ao obter produtos:', error)
+                reject(error) 
             }
-        });
-    });
+        })
+    })
 }
 
 
-function obterIdProduto(){
-    const container = document.getElementsByClassName('produtos-container')
+export function deletar(produto){
+    return new Promise((resolve, reject) => {
+        try {
+            const produtoDeletar = new Produto()
+            produtoDeletar.id = produto.id
+           
+            produtoDeletar.deletar(produtoDeletar.id)
 
-    container.addEventListener('click', function(event){
-        if (event.target.tagName === 'BUTTON') {
-            const idDoBotao = event.target.id;
+            resolve()
+        } catch (error) {
 
-            return idDoBotao
+            reject(error)
         }
     })
 }
 
-export function deletar(){
-    const id = obterIdProduto()
-
-    Produto.deletar(id)
+export function obterPorId(id) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: `http://localhost:5021/api/Produtos/${id}`,
+            type: 'GET',
+            contentType: 'application/json',
+            success: function(response) {
+                console.log('Produto obtido com sucesso:', response)
+                resolve(response)
+            },
+            error: function(error) {
+                console.error('Erro ao obter produtos:', error)
+                reject(error)
+            }
+        })
+    })
 }
 
-export function obterProdutoPorId(){
-    const id = obterIdProduto()
+export async function atualizar(id, nome, valor, quantidade, itemEspecial, ingredientes, alterador){
+    const produtoAntigo = await obterPorId(id)
+    const dataEmissao = produtoAntigo.dataEmissao
+    const produto = new Produto(id, valor, quantidade, itemEspecial, nome, dataEmissao)
+    produto.ingredientes = ingredientes
 
-    Produto.obterPorId(id)
+    produto.atualizar(id, produto, alterador)
 }
 

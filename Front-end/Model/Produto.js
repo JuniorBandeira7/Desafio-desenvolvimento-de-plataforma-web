@@ -7,15 +7,22 @@ class Produto {
         this.itemEspecial = itemEspecial
         this.nome = nome
         this.dataEmissao = dataEmissao
-        this.igredientes = []
+        this.ingredientes = []
     }
 
     criarProduto(produto) {
         $.ajax({
-            url: 'http://localhost:5017/api/Produtos',
+            url: 'http://localhost:5021/api/Produtos',
             type: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify(produto),
+            data: JSON.stringify({
+                nome: produto.nome,
+                valor: produto.valor,
+                quantidade: produto.quantidade,
+                itemEspecial: produto.itemEspecial,
+                ingredientes: produto.ingredientes,
+                dataEmissao: produto.dataEmissao
+            }),
             success: function(response) {
                 console.log('Produto criado com sucesso:', response);
             },
@@ -25,24 +32,9 @@ class Produto {
         });
     }
 
-    obterPorId(id) {
-        $.ajax({
-            url: `http://localhost:5017/api/Produtos/${id}`,
-            type: 'GET',
-            contentType: 'application/json',
-            success: function(response) {
-                console.log('Produto obtido com sucesso:', response);
-                return response
-            },
-            error: function(error) {
-                console.error('Erro ao obter produtos:', error);
-            }
-        });
-    }
-
     deletar(id) {
         $.ajax({
-            url: `http://localhost:5017/api/Produtos/delete/${id}`,
+            url: `http://localhost:5021/api/Produtos/delete/${id}`,
             type: 'DELETE',
             success: function() {
                 console.log('Produto deletado com sucesso');
@@ -55,7 +47,7 @@ class Produto {
 
     atualizar(id, produto, nomeDeQuemAlterou) {
         $.ajax({
-            url: `http://localhost:5017/api/Produtos/${id}`,
+            url: `http://localhost:5021/api/Produtos/${id}?nomeDeQuemAlterou=${encodeURIComponent(nomeDeQuemAlterou)}`,
             type: 'PUT',
             contentType: 'application/json',
             data: JSON.stringify({
@@ -64,14 +56,14 @@ class Produto {
                 quantidade: produto.quantidade,
                 itemEspecial: produto.itemEspecial,
                 ingredientes: produto.ingredientes,
-                nomeDeQuemAlterou: nomeDeQuemAlterou
+                dataEmissao: produto.dataEmissao
             }),
             success: function(response) {
                 console.log('Produto atualizado com sucesso:', response);
-                window.location.href = '/';// Pensar em algum feedback visual
+                alert('Produto atualizado com sucesso')
             },
             error: function(xhr, status, error) {
-                console.error('Erro ao atualizar o produto:', error);
+                console.error('Erro ao atualizar o produto:', xhr, status, error);
             }
         });
     }

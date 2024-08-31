@@ -9,10 +9,69 @@
     justify-content: center;
     margin-top: 3em;
 }
+
 .content-section-div{
     width: 70%;
     border: 1px solid #009cf7;
 }
+
 a{
     text-decoration: none;
+}
+
+.edit-button{
+    border: none; 
+    background-color: #ffffff00; 
+    cursor: pointer; 
+    width: 16px; 
+    height: 16px; 
+    margin-right: 1em;
+}
+
+#modificar-produto-form {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-group input[type="checkbox"] {
+    width: auto;
+    margin-right: 5px;
+}
+
+.submit-button {
+    background-color: #337ab7;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.submit-button:hover {
+    background-color: #286090;
+}
+
+textarea {
+    resize: vertical;
 }
